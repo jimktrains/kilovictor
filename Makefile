@@ -17,10 +17,10 @@ test: ${EXE} ${CLIENT}
 	sleep 1
 	./${CLIENT}
 
-${EXE}: src/main.o src/message.pb.o src/message.grpc.pb.o
+${EXE}: src/main.o src/message.pb.o src/message.grpc.pb.o src/KVServer.o
 	${CXX} ${CXXFLAG} -o $@ $^
 
-${CLIENT}: src/client.o src/message.pb.o src/message.grpc.pb.o
+${CLIENT}: src/client.o src/message.pb.o src/message.grpc.pb.o 
 	${CXX} ${CXXFLAG} -o $@ $^
 
 %.o: %.c
