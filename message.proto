@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package kilovictor;
+
+message NumericValue {
+  sint64 value = 1;
+  int64 version = 2;
+}
+
+message Key {
+  bytes value = 1;
+}
+
+message NumericKeyValue {
+  Key key = 1;
+  NumericValue value = 2;
+}
+
+service KiloVictor {
+  rpc getNumeric(Key) returns (NumericValue);
+  rpc setNumeric(NumericKeyValue) returns (NumericValue);
+}
