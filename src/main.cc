@@ -1,6 +1,4 @@
-#include "message.pb.h"
 #include "message.grpc.pb.h"
-#include <unordered_map>
 #include <atomic>
 #include <string>
 #include <array>
@@ -20,7 +18,7 @@ const int TABLE_SIZE = 1023;
 std::array<NumericKeyValue, TABLE_SIZE> numeric_map;
 std::array<std::atomic_llong, TABLE_SIZE> numeric_map_lock;
 
-std::atomic_llong cmdid{1};
+std::atomic_llong cmdid;
 
 std::size_t hash(Key k) {
     return std::hash<std::string>{}(k.value());
@@ -59,13 +57,15 @@ Status KVImpl :: setNumeric(
 
   auto cur_cmd_id = cmdid++;
 
-  while(numeric_map_lock[h].fetch_sub(cur_cmd_id) != 0) {
+  while( (numeric_map_lock[h].load() - cur_cmd_id) != 0) {
+    std::cout << "Waiting at: " << numeric_map_lock[h].load() << " for " << cur_cmd_id << std::endl;
     // thread wait
   }
   
   NumericValue *newval = new NumericValue(numeric_map[h].value());
 
-  if (newval->version() < des_val.version()) {
+  std::cout << newval->version() << '\t' << des_val.version() << '\t' << (newval->version() < des_val.version() || des_val.version() == 0  ) << std::endl;
+  if (newval->version() < des_val.version() || des_val.version() == 0) {
 
     newval->set_value(request->value().value());
     newval->set_version(cur_cmd_id);
@@ -76,7 +76,11 @@ Status KVImpl :: setNumeric(
     *response = *newval;
 
     s = Status::OK;
- }
+  }
+	else
+	{
+		*response = numeric_map[h].value();
+	}
 
   // release the lock and return
   numeric_map_lock[h]++;
@@ -92,6 +96,7 @@ void RunServer() {
   builder.RegisterService(&service);
   std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
   std::cout << "Server listening on " << server_address << std::endl;
+
   server->Wait();
 }
 
@@ -100,30 +105,7 @@ int main(int argc, const char* argv[]) {
   UNUSED(argc);
   UNUSED(argv);
 
-  KVImpl srv;
-
-  Key k;
-  k.set_value("Test Key");
-
-  NumericValue v1;
-  v1.set_value(1234);
-  v1.set_version(1);
-
-  NumericValue v2;
-
-  NumericKeyValue kv;
-  *kv.mutable_key() = k;
-  *kv.mutable_value() = v1;
-
-  NumericKeyValue ret;
-  auto r1 = srv.setNumeric(nullptr, &kv, &v2);
-  std::cout << r1.error_code() << '\t' << v2.version() << std::endl;
-  auto r2 = srv.setNumeric(nullptr, &kv, &v2);
-  std::cout << r2.error_code() << '\t' << v2.version() << std::endl;
-
-  auto r3 = srv.getNumeric(nullptr, &k, &v2);
-  std::cout << r3.error_code() << '\t' << v2.value() << '\t' << v2.version() << std::endl;
-
+  RunServer();
 
   return 0;
 }
