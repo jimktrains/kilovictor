@@ -1,5 +1,5 @@
 CXX = clang
-CXXFLAG = -std=c++14 -Wall -Wextra -Wpedantic -Wsign-conversion \
+CXXFLAG = -std=c++1z -Wall -Wextra -Wpedantic -Wsign-conversion \
 	  -Wold-style-cast -Wsign-promo -Wsign-promo -Wswitch-enum \
 	  -Weffc++ -Wshadow -Wno-missing-braces -g \
 	  -I /usr/local/include \
@@ -17,7 +17,7 @@ test: ${EXE} ${CLIENT}
 	sleep 1
 	./${CLIENT}
 
-${EXE}: src/main.o src/message.pb.o src/message.grpc.pb.o src/KVServer.o
+${EXE}: src/main.o src/message.pb.o src/message.grpc.pb.o src/KVServer.o 
 	${CXX} ${CXXFLAG} -o $@ $^
 
 ${CLIENT}: src/client.o src/message.pb.o src/message.grpc.pb.o 
@@ -30,4 +30,4 @@ ${CLIENT}: src/client.o src/message.pb.o src/message.grpc.pb.o
 	${CXX} ${CXXFLAG} -c -o $@ $?
 
 clean:
-	rm -f *.o {EXE} *.s
+	rm -f *.o {EXE} *.s src/*.o

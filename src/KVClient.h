@@ -9,6 +9,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#define UNUSED(expr) do { (void)(expr); } while (0)
+
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;

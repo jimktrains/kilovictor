@@ -10,6 +10,8 @@
 
 #define UNUSED(expr) do { (void)(expr); } while (0)
 
+#include "DynHaT.h"
+
 using namespace kilovictor;
 using grpc::Status;
 using grpc::ServerContext;
@@ -18,6 +20,8 @@ using grpc::ServerBuilder;
 
 
 class KVServer final : public KiloVictor::Service {
+  private:
+    DynHaT<std::string, NumericValue> table;
   public:
     Status getNumeric(ServerContext* context, const Key* request, NumericValue* response);
     Status setNumeric(ServerContext* context, const NumericKeyValue* request, NumericValue* response);

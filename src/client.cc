@@ -2,6 +2,8 @@
 #include "KVClient.h"
 
 int main(int argc, char** argv) {
+  UNUSED(argc);
+  UNUSED(argv);
 
   auto pid = getpid();
 	auto p = pid * 100;
@@ -27,6 +29,8 @@ int main(int argc, char** argv) {
 		std::cout << pid << '\t' << " Got: " << reply.value() << '/' << reply.version() << std::endl;
 
 		nkv.mutable_value()->set_version(reply.version() + 1);
+
+    i++;
 	}
 
   return 0;
