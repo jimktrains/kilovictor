@@ -30,21 +30,14 @@ std::size_t hash(KEY k) {
 
 using std::experimental::optional;
 
+/**
+ * Goal: Concurrent access to a hash table using a consistent  hashing
+ * scheme.
+ */
 // Eventually, this should mimic std::map's interface
 template<typename KEY, typename VALUE>
 class DynHaT {
   private:
-    /*
-    index numerator denominator eigth upper_bound
-      0       0         1        0        8
-      1       1         2        4        8
-      2       1         4        2        4
-      3       3         4        6        8
-      4       1         8        1        2
-      5       3         8        3        4
-      6       5         8        5        6
-      7       7         8        7        8
-    */
 
     const static int partition_lower_bound[PARTITION_COUNT];
     const static int partition_upper_bound[PARTITION_COUNT];
@@ -66,6 +59,17 @@ DynHaT<KEY, VALUE> :: DynHaT() {
   table[0] = std::make_unique<std::array<optional<std::pair<KEY, VALUE>>, TABLE_SIZE>>(std::array<optional<std::pair<KEY, VALUE>>, TABLE_SIZE>());
 }
 
+/*
+index numerator denominator eigth upper_bound
+  0       0         1        0        8
+  1       1         2        4        8
+  2       1         4        2        4
+  3       3         4        6        8
+  4       1         8        1        2
+  5       3         8        3        4
+  6       5         8        5        6
+  7       7         8        7        8
+*/
 template<typename KEY, typename VALUE>
 constexpr int DynHaT<KEY, VALUE> :: partition_lower_bound[PARTITION_COUNT] = {0,4,2,6,1,3,5,7};
 template<typename KEY, typename VALUE>
