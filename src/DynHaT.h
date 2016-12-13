@@ -36,7 +36,8 @@ using std::experimental::optional;
  */
 // Eventually, this should mimic std::map's interface
 template<typename KEY, typename VALUE>
-class DynHaT {
+class DynHaT
+{
   private:
 
     const static int partition_lower_bound[PARTITION_COUNT];
@@ -44,22 +45,37 @@ class DynHaT {
 
     std::atomic_uint subtable_count;
     std::array<std::unique_ptr<std::array<optional<std::pair<KEY, VALUE>>, TABLE_SIZE>>, PARTITION_COUNT> table = {};
+    std::array<size_t, PARTITION_COUNT> table_count = {};
     std::array<std::atomic_ullong, LOCK_SIZE> lock = {};
     std::array<std::atomic_ullong, LOCK_SIZE> counter = {};
+    std::atomic_ullong conflicts;
 
     HashParts hashparts(KEY key);
   public:
     DynHaT();
     const optional<VALUE> operator[](KEY key);
     bool insert(KEY key, VALUE value);
+    unsigned long long conflict_count();
 };
 
 template<typename KEY, typename VALUE>
-DynHaT<KEY, VALUE> :: DynHaT() {
+DynHaT<KEY, VALUE> :: DynHaT()
+{
   table[0] = std::make_unique<std::array<optional<std::pair<KEY, VALUE>>, TABLE_SIZE>>(std::array<optional<std::pair<KEY, VALUE>>, TABLE_SIZE>());
 }
 
+template<typename KEY, typename VALUE>
+unsigned long long DynHaT<KEY, VALUE> :: conflict_count()
+{
+  return conflicts.load();
+}
+
 /*
+If we start with the whole table, divided into (here) 8 parts, and then bisect
+it once it gets too full, and then slowly bisect the halves, and then the
+quarters, etc we can build up divisions of the table and be able to work
+backwards through the additions to find a potential match.
+
 index numerator denominator eigth upper_bound
   0       0         1        0        8
   1       1         2        4        8
@@ -99,8 +115,9 @@ const optional<VALUE> DynHaT<KEY, VALUE> :: operator[](KEY key) {
   auto hashval = hashparts(key);
 
   int partition = hashval.partition;
-  for(long long i = subtable_count.load(); 0 <= i; i--)
+  for(long long j = subtable_count.load(); 0 <= j; j--)
   {
+    size_t i = static_cast<size_t>(j);
     if (   partition <  partition_upper_bound[i] 
         && partition >= partition_lower_bound[i]) {
 
@@ -132,7 +149,11 @@ bool DynHaT<KEY, VALUE> :: insert(KEY key, VALUE value) {
 
   //@TODO make into RAII style lock
   auto cur_cmd_id = counter[hashval.lock_idx]++;
+
+  bool waited = false;
   while( (cur_cmd_id - lock[hashval.lock_idx].load()) != 0) {
+    if(!waited) { conflicts++; }
+    waited = true;
     // thread wait
   }
 
@@ -148,12 +169,14 @@ bool DynHaT<KEY, VALUE> :: insert(KEY key, VALUE value) {
       auto val = ctable[idx];
       if (!val) {
         ctable[idx] = std::pair<KEY, VALUE>{key, value};
+        // update the number of items in this table
+        table_count[i]++;
         inserted = true;
       } 
       break;
     }
   }
-  // @TODO see L111
+  // @TODO see L135
   lock[hashval.lock_idx]++;
   return inserted;
 }
