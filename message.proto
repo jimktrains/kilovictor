@@ -16,7 +16,82 @@ message NumericKeyValue {
   NumericValue value = 2;
 }
 
+message Empty {}
+
+enum ServiceStatusCode {
+  DEAD = 0;
+  STARTING = 1;
+  ALIVE = 2;
+  STOPPING = 3;
+  STOPPED = 4;
+  WARNING = 5;
+};
+
+message Options {
+	map<string, string> options = 1;
+};
+
+message Counters {
+	map<string, sint64> counters = 1;
+};
+
+message ServiceStatus {
+	ServiceStatusCode code = 1;
+	string description = 2;
+};
+
+message ServiceDescription {
+	string name = 1;
+	string version = 2;
+	fixed64 aliceSince = 3;
+};
+
 service KiloVictor {
   rpc getNumeric(Key) returns (NumericValue);
   rpc setNumeric(NumericKeyValue) returns (NumericValue);
+  
+	/**
+   * Returns a descriptive name of the service
+   */
+  rpc getDescription(Empty) returns (ServiceDescription);
+
+  /**
+   * Gets the status of this service
+   */
+  rpc getStatus(Empty) returns (ServiceStatus);
+
+  /**
+   * Gets the counters for this service
+   */
+  rpc getCounters(Empty) returns (Counters);
+
+  /**
+   * Gets the value of a single counter
+   */
+  rpc getCounter(Counters) returns (Counters);
+
+  /**
+   * Sets an option
+   */
+  rpc setOption(Options) returns (Empty);
+
+  /**
+   * Gets an option
+   */
+  rpc getOption(Options) returns (Options);
+
+  /**
+   * Gets all options
+   */
+  rpc getOptions(Empty) returns (Options);
+
+  /**
+   * Tell the server to reload its configuration, reopen log files, etc
+   */
+  rpc reinitialize(Empty) returns (Empty);
+
+  /**
+   * Suggest a shutdown to the server
+   */
+  rpc shutdown(Empty) returns (Empty);
 }

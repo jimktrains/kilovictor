@@ -19,7 +19,7 @@
 struct HashParts {
   size_t hash;
   size_t partition;
-  size_t rhash;
+  size_t slot;
   size_t lock_idx;
 };
 
@@ -48,6 +48,7 @@ class DynHaT
     std::array<size_t, PARTITION_COUNT> table_count = {};
     std::array<std::atomic_ullong, LOCK_SIZE> lock = {};
     std::array<std::atomic_ullong, LOCK_SIZE> counter = {};
+//    std::array<std::mutex, LOCK_SIZE> mutecies= {};
     std::atomic_ullong conflicts;
 
     HashParts hashparts(KEY key);
@@ -102,12 +103,15 @@ HashParts DynHaT<KEY, VALUE> :: hashparts(KEY key) {
   auto partition = h >> ((sizeof(h) * 8) - 3);
   // Drops the top 3 bits
   // 10101010 -> 00001010
-  auto rhash = (h << 3) >> 3;
+  auto slot = ((h << 3) >> 3) % TABLE_SIZE;
 
-  auto lidx = h % LOCK_SIZE;
+  // This should ensure that each slot is protected
+  // and not skipped by different partition / slot combos mapping to the
+  // same slot
+  auto lidx = (slot * (partition * TABLE_SIZE)) % LOCK_SIZE;
 
 
-  return HashParts{h, partition, rhash, lidx};
+  return HashParts{h, partition, slot, lidx};
 }
 
 template<typename KEY, typename VALUE>
@@ -123,7 +127,7 @@ const optional<VALUE> DynHaT<KEY, VALUE> :: operator[](KEY key) {
 
       if (table[i]) {
         auto ctable = *table[i];
-        auto idx = hashval.rhash % ctable.size();
+        auto idx = hashval.slot;
         auto val = ctable[idx];
         if (val) {
           if (val.value_or(std::pair<KEY, VALUE>()).first == key) {
@@ -147,6 +151,7 @@ bool DynHaT<KEY, VALUE> :: insert(KEY key, VALUE value) {
 
   int partition = hashval.partition;
 
+//  std::lock_guard<std::mutex> thislock(mutecies[hashval.lock_idx]);
   //@TODO make into RAII style lock
   auto cur_cmd_id = counter[hashval.lock_idx]++;
 
@@ -157,6 +162,7 @@ bool DynHaT<KEY, VALUE> :: insert(KEY key, VALUE value) {
     // thread wait
   }
 
+
   bool inserted = false;
   for(auto i = subtable_count.load(); 0 <= i; i--)
   {
@@ -164,7 +170,7 @@ bool DynHaT<KEY, VALUE> :: insert(KEY key, VALUE value) {
         && partition >= partition_lower_bound[i]) {
 
       auto ctable = *table[i];
-      auto idx = hashval.rhash % ctable.size();
+      auto idx = hashval.slot;
 
       auto val = ctable[idx];
       if (!val) {

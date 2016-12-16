@@ -41,8 +41,8 @@ class KVClient{
     if (status.ok()) {
       return reply;
     } else {
-      std::cout << status.error_code() << ": " << status.error_message()
-                << std::endl;
+ //     std::cout << status.error_code() << ": " << status.error_message()
+ //               << std::endl;
       return NumericValue();
     }
   }
@@ -63,8 +63,8 @@ class KVClient{
     // Act upon its status.
     if (status.ok()) {
     } else {
-      std::cout << status.error_code() << ": " << status.error_message()
-                << std::endl;
+//      std::cout << status.error_code() << ": " << status.error_message()
+//                << std::endl;
     }
 		return reply;
   }
@@ -73,7 +73,7 @@ class KVClient{
 	{
     auto x = channel_->GetState(false);
 
-    std::cout << "Connection: " << x << std::endl;
+//    std::cout << "Connection: " << x << std::endl;
     return true;
 	}
 

@@ -18,6 +18,15 @@ namespace kilovictor {
 static const char* KiloVictor_method_names[] = {
   "/kilovictor.KiloVictor/getNumeric",
   "/kilovictor.KiloVictor/setNumeric",
+  "/kilovictor.KiloVictor/getDescription",
+  "/kilovictor.KiloVictor/getStatus",
+  "/kilovictor.KiloVictor/getCounters",
+  "/kilovictor.KiloVictor/getCounter",
+  "/kilovictor.KiloVictor/setOption",
+  "/kilovictor.KiloVictor/getOption",
+  "/kilovictor.KiloVictor/getOptions",
+  "/kilovictor.KiloVictor/reinitialize",
+  "/kilovictor.KiloVictor/shutdown",
 };
 
 std::unique_ptr< KiloVictor::Stub> KiloVictor::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -28,6 +37,15 @@ std::unique_ptr< KiloVictor::Stub> KiloVictor::NewStub(const std::shared_ptr< ::
 KiloVictor::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   : channel_(channel), rpcmethod_getNumeric_(KiloVictor_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_setNumeric_(KiloVictor_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_getDescription_(KiloVictor_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_getStatus_(KiloVictor_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_getCounters_(KiloVictor_method_names[4], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_getCounter_(KiloVictor_method_names[5], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_setOption_(KiloVictor_method_names[6], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_getOption_(KiloVictor_method_names[7], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_getOptions_(KiloVictor_method_names[8], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_reinitialize_(KiloVictor_method_names[9], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_shutdown_(KiloVictor_method_names[10], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status KiloVictor::Stub::getNumeric(::grpc::ClientContext* context, const ::kilovictor::Key& request, ::kilovictor::NumericValue* response) {
@@ -46,6 +64,78 @@ KiloVictor::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel
   return new ::grpc::ClientAsyncResponseReader< ::kilovictor::NumericValue>(channel_.get(), cq, rpcmethod_setNumeric_, context, request);
 }
 
+::grpc::Status KiloVictor::Stub::getDescription(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::ServiceDescription* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_getDescription_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::kilovictor::ServiceDescription>* KiloVictor::Stub::AsyncgetDescriptionRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::kilovictor::ServiceDescription>(channel_.get(), cq, rpcmethod_getDescription_, context, request);
+}
+
+::grpc::Status KiloVictor::Stub::getStatus(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::ServiceStatus* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_getStatus_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::kilovictor::ServiceStatus>* KiloVictor::Stub::AsyncgetStatusRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::kilovictor::ServiceStatus>(channel_.get(), cq, rpcmethod_getStatus_, context, request);
+}
+
+::grpc::Status KiloVictor::Stub::getCounters(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::Counters* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_getCounters_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::kilovictor::Counters>* KiloVictor::Stub::AsyncgetCountersRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::kilovictor::Counters>(channel_.get(), cq, rpcmethod_getCounters_, context, request);
+}
+
+::grpc::Status KiloVictor::Stub::getCounter(::grpc::ClientContext* context, const ::kilovictor::Counters& request, ::kilovictor::Counters* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_getCounter_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::kilovictor::Counters>* KiloVictor::Stub::AsyncgetCounterRaw(::grpc::ClientContext* context, const ::kilovictor::Counters& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::kilovictor::Counters>(channel_.get(), cq, rpcmethod_getCounter_, context, request);
+}
+
+::grpc::Status KiloVictor::Stub::setOption(::grpc::ClientContext* context, const ::kilovictor::Options& request, ::kilovictor::Empty* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_setOption_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::kilovictor::Empty>* KiloVictor::Stub::AsyncsetOptionRaw(::grpc::ClientContext* context, const ::kilovictor::Options& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::kilovictor::Empty>(channel_.get(), cq, rpcmethod_setOption_, context, request);
+}
+
+::grpc::Status KiloVictor::Stub::getOption(::grpc::ClientContext* context, const ::kilovictor::Options& request, ::kilovictor::Options* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_getOption_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::kilovictor::Options>* KiloVictor::Stub::AsyncgetOptionRaw(::grpc::ClientContext* context, const ::kilovictor::Options& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::kilovictor::Options>(channel_.get(), cq, rpcmethod_getOption_, context, request);
+}
+
+::grpc::Status KiloVictor::Stub::getOptions(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::Options* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_getOptions_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::kilovictor::Options>* KiloVictor::Stub::AsyncgetOptionsRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::kilovictor::Options>(channel_.get(), cq, rpcmethod_getOptions_, context, request);
+}
+
+::grpc::Status KiloVictor::Stub::reinitialize(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::Empty* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_reinitialize_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::kilovictor::Empty>* KiloVictor::Stub::AsyncreinitializeRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::kilovictor::Empty>(channel_.get(), cq, rpcmethod_reinitialize_, context, request);
+}
+
+::grpc::Status KiloVictor::Stub::shutdown(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::Empty* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_shutdown_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::kilovictor::Empty>* KiloVictor::Stub::AsyncshutdownRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::kilovictor::Empty>(channel_.get(), cq, rpcmethod_shutdown_, context, request);
+}
+
 KiloVictor::Service::Service() {
   (void)KiloVictor_method_names;
   AddMethod(new ::grpc::RpcServiceMethod(
@@ -58,6 +148,51 @@ KiloVictor::Service::Service() {
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< KiloVictor::Service, ::kilovictor::NumericKeyValue, ::kilovictor::NumericValue>(
           std::mem_fn(&KiloVictor::Service::setNumeric), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      KiloVictor_method_names[2],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< KiloVictor::Service, ::kilovictor::Empty, ::kilovictor::ServiceDescription>(
+          std::mem_fn(&KiloVictor::Service::getDescription), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      KiloVictor_method_names[3],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< KiloVictor::Service, ::kilovictor::Empty, ::kilovictor::ServiceStatus>(
+          std::mem_fn(&KiloVictor::Service::getStatus), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      KiloVictor_method_names[4],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< KiloVictor::Service, ::kilovictor::Empty, ::kilovictor::Counters>(
+          std::mem_fn(&KiloVictor::Service::getCounters), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      KiloVictor_method_names[5],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< KiloVictor::Service, ::kilovictor::Counters, ::kilovictor::Counters>(
+          std::mem_fn(&KiloVictor::Service::getCounter), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      KiloVictor_method_names[6],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< KiloVictor::Service, ::kilovictor::Options, ::kilovictor::Empty>(
+          std::mem_fn(&KiloVictor::Service::setOption), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      KiloVictor_method_names[7],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< KiloVictor::Service, ::kilovictor::Options, ::kilovictor::Options>(
+          std::mem_fn(&KiloVictor::Service::getOption), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      KiloVictor_method_names[8],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< KiloVictor::Service, ::kilovictor::Empty, ::kilovictor::Options>(
+          std::mem_fn(&KiloVictor::Service::getOptions), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      KiloVictor_method_names[9],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< KiloVictor::Service, ::kilovictor::Empty, ::kilovictor::Empty>(
+          std::mem_fn(&KiloVictor::Service::reinitialize), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      KiloVictor_method_names[10],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< KiloVictor::Service, ::kilovictor::Empty, ::kilovictor::Empty>(
+          std::mem_fn(&KiloVictor::Service::shutdown), this)));
 }
 
 KiloVictor::Service::~Service() {
@@ -71,6 +206,69 @@ KiloVictor::Service::~Service() {
 }
 
 ::grpc::Status KiloVictor::Service::setNumeric(::grpc::ServerContext* context, const ::kilovictor::NumericKeyValue* request, ::kilovictor::NumericValue* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status KiloVictor::Service::getDescription(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::ServiceDescription* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status KiloVictor::Service::getStatus(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::ServiceStatus* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status KiloVictor::Service::getCounters(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Counters* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status KiloVictor::Service::getCounter(::grpc::ServerContext* context, const ::kilovictor::Counters* request, ::kilovictor::Counters* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status KiloVictor::Service::setOption(::grpc::ServerContext* context, const ::kilovictor::Options* request, ::kilovictor::Empty* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status KiloVictor::Service::getOption(::grpc::ServerContext* context, const ::kilovictor::Options* request, ::kilovictor::Options* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status KiloVictor::Service::getOptions(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Options* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status KiloVictor::Service::reinitialize(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Empty* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status KiloVictor::Service::shutdown(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Empty* response) {
   (void) context;
   (void) request;
   (void) response;

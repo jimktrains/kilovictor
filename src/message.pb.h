@@ -26,6 +26,9 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
+#include <google/protobuf/map.h>
+#include <google/protobuf/map_field_inl.h>
+#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 
@@ -36,10 +39,40 @@ void protobuf_AddDesc_message_2eproto();
 void protobuf_AssignDesc_message_2eproto();
 void protobuf_ShutdownFile_message_2eproto();
 
+class Counters;
+class Empty;
 class Key;
 class NumericKeyValue;
 class NumericValue;
+class Options;
+class ServiceDescription;
+class ServiceStatus;
 
+enum ServiceStatusCode {
+  DEAD = 0,
+  STARTING = 1,
+  ALIVE = 2,
+  STOPPING = 3,
+  STOPPED = 4,
+  WARNING = 5,
+  ServiceStatusCode_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  ServiceStatusCode_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool ServiceStatusCode_IsValid(int value);
+const ServiceStatusCode ServiceStatusCode_MIN = DEAD;
+const ServiceStatusCode ServiceStatusCode_MAX = WARNING;
+const int ServiceStatusCode_ARRAYSIZE = ServiceStatusCode_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* ServiceStatusCode_descriptor();
+inline const ::std::string& ServiceStatusCode_Name(ServiceStatusCode value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    ServiceStatusCode_descriptor(), value);
+}
+inline bool ServiceStatusCode_Parse(
+    const ::std::string& name, ServiceStatusCode* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<ServiceStatusCode>(
+    ServiceStatusCode_descriptor(), name, value);
+}
 // ===================================================================
 
 class NumericValue : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:kilovictor.NumericValue) */ {
@@ -311,6 +344,473 @@ class NumericKeyValue : public ::google::protobuf::Message /* @@protoc_insertion
   void InitAsDefaultInstance();
   static NumericKeyValue* default_instance_;
 };
+// -------------------------------------------------------------------
+
+class Empty : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:kilovictor.Empty) */ {
+ public:
+  Empty();
+  virtual ~Empty();
+
+  Empty(const Empty& from);
+
+  inline Empty& operator=(const Empty& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Empty& default_instance();
+
+  void Swap(Empty* other);
+
+  // implements Message ----------------------------------------------
+
+  inline Empty* New() const { return New(NULL); }
+
+  Empty* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Empty& from);
+  void MergeFrom(const Empty& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Empty* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:kilovictor.Empty)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_message_2eproto();
+  friend void protobuf_AssignDesc_message_2eproto();
+  friend void protobuf_ShutdownFile_message_2eproto();
+
+  void InitAsDefaultInstance();
+  static Empty* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class Options : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:kilovictor.Options) */ {
+ public:
+  Options();
+  virtual ~Options();
+
+  Options(const Options& from);
+
+  inline Options& operator=(const Options& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Options& default_instance();
+
+  void Swap(Options* other);
+
+  // implements Message ----------------------------------------------
+
+  inline Options* New() const { return New(NULL); }
+
+  Options* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Options& from);
+  void MergeFrom(const Options& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Options* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+
+  // accessors -------------------------------------------------------
+
+  // map<string, string> options = 1;
+  int options_size() const;
+  void clear_options();
+  static const int kOptionsFieldNumber = 1;
+  const ::google::protobuf::Map< ::std::string, ::std::string >&
+      options() const;
+  ::google::protobuf::Map< ::std::string, ::std::string >*
+      mutable_options();
+
+  // @@protoc_insertion_point(class_scope:kilovictor.Options)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  typedef ::google::protobuf::internal::MapEntryLite<
+      ::std::string, ::std::string,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      0 >
+      Options_OptionsEntry;
+  ::google::protobuf::internal::MapField<
+      ::std::string, ::std::string,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      0 > options_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_message_2eproto();
+  friend void protobuf_AssignDesc_message_2eproto();
+  friend void protobuf_ShutdownFile_message_2eproto();
+
+  void InitAsDefaultInstance();
+  static Options* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class Counters : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:kilovictor.Counters) */ {
+ public:
+  Counters();
+  virtual ~Counters();
+
+  Counters(const Counters& from);
+
+  inline Counters& operator=(const Counters& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Counters& default_instance();
+
+  void Swap(Counters* other);
+
+  // implements Message ----------------------------------------------
+
+  inline Counters* New() const { return New(NULL); }
+
+  Counters* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Counters& from);
+  void MergeFrom(const Counters& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Counters* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+
+  // accessors -------------------------------------------------------
+
+  // map<string, sint64> counters = 1;
+  int counters_size() const;
+  void clear_counters();
+  static const int kCountersFieldNumber = 1;
+  const ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >&
+      counters() const;
+  ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >*
+      mutable_counters();
+
+  // @@protoc_insertion_point(class_scope:kilovictor.Counters)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  typedef ::google::protobuf::internal::MapEntryLite<
+      ::std::string, ::google::protobuf::int64,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_SINT64,
+      0 >
+      Counters_CountersEntry;
+  ::google::protobuf::internal::MapField<
+      ::std::string, ::google::protobuf::int64,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_SINT64,
+      0 > counters_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_message_2eproto();
+  friend void protobuf_AssignDesc_message_2eproto();
+  friend void protobuf_ShutdownFile_message_2eproto();
+
+  void InitAsDefaultInstance();
+  static Counters* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ServiceStatus : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:kilovictor.ServiceStatus) */ {
+ public:
+  ServiceStatus();
+  virtual ~ServiceStatus();
+
+  ServiceStatus(const ServiceStatus& from);
+
+  inline ServiceStatus& operator=(const ServiceStatus& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ServiceStatus& default_instance();
+
+  void Swap(ServiceStatus* other);
+
+  // implements Message ----------------------------------------------
+
+  inline ServiceStatus* New() const { return New(NULL); }
+
+  ServiceStatus* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ServiceStatus& from);
+  void MergeFrom(const ServiceStatus& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ServiceStatus* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .kilovictor.ServiceStatusCode code = 1;
+  void clear_code();
+  static const int kCodeFieldNumber = 1;
+  ::kilovictor::ServiceStatusCode code() const;
+  void set_code(::kilovictor::ServiceStatusCode value);
+
+  // optional string description = 2;
+  void clear_description();
+  static const int kDescriptionFieldNumber = 2;
+  const ::std::string& description() const;
+  void set_description(const ::std::string& value);
+  void set_description(const char* value);
+  void set_description(const char* value, size_t size);
+  ::std::string* mutable_description();
+  ::std::string* release_description();
+  void set_allocated_description(::std::string* description);
+
+  // @@protoc_insertion_point(class_scope:kilovictor.ServiceStatus)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr description_;
+  int code_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_message_2eproto();
+  friend void protobuf_AssignDesc_message_2eproto();
+  friend void protobuf_ShutdownFile_message_2eproto();
+
+  void InitAsDefaultInstance();
+  static ServiceStatus* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ServiceDescription : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:kilovictor.ServiceDescription) */ {
+ public:
+  ServiceDescription();
+  virtual ~ServiceDescription();
+
+  ServiceDescription(const ServiceDescription& from);
+
+  inline ServiceDescription& operator=(const ServiceDescription& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ServiceDescription& default_instance();
+
+  void Swap(ServiceDescription* other);
+
+  // implements Message ----------------------------------------------
+
+  inline ServiceDescription* New() const { return New(NULL); }
+
+  ServiceDescription* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ServiceDescription& from);
+  void MergeFrom(const ServiceDescription& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ServiceDescription* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string name = 1;
+  void clear_name();
+  static const int kNameFieldNumber = 1;
+  const ::std::string& name() const;
+  void set_name(const ::std::string& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  ::std::string* mutable_name();
+  ::std::string* release_name();
+  void set_allocated_name(::std::string* name);
+
+  // optional string version = 2;
+  void clear_version();
+  static const int kVersionFieldNumber = 2;
+  const ::std::string& version() const;
+  void set_version(const ::std::string& value);
+  void set_version(const char* value);
+  void set_version(const char* value, size_t size);
+  ::std::string* mutable_version();
+  ::std::string* release_version();
+  void set_allocated_version(::std::string* version);
+
+  // optional fixed64 aliceSince = 3;
+  void clear_alicesince();
+  static const int kAliceSinceFieldNumber = 3;
+  ::google::protobuf::uint64 alicesince() const;
+  void set_alicesince(::google::protobuf::uint64 value);
+
+  // @@protoc_insertion_point(class_scope:kilovictor.ServiceDescription)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr name_;
+  ::google::protobuf::internal::ArenaStringPtr version_;
+  ::google::protobuf::uint64 alicesince_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_message_2eproto();
+  friend void protobuf_AssignDesc_message_2eproto();
+  friend void protobuf_ShutdownFile_message_2eproto();
+
+  void InitAsDefaultInstance();
+  static ServiceDescription* default_instance_;
+};
 // ===================================================================
 
 
@@ -475,7 +975,233 @@ inline void NumericKeyValue::set_allocated_value(::kilovictor::NumericValue* val
   // @@protoc_insertion_point(field_set_allocated:kilovictor.NumericKeyValue.value)
 }
 
+// -------------------------------------------------------------------
+
+// Empty
+
+// -------------------------------------------------------------------
+
+// Options
+
+// map<string, string> options = 1;
+inline int Options::options_size() const {
+  return options_.size();
+}
+inline void Options::clear_options() {
+  options_.Clear();
+}
+inline const ::google::protobuf::Map< ::std::string, ::std::string >&
+Options::options() const {
+  // @@protoc_insertion_point(field_map:kilovictor.Options.options)
+  return options_.GetMap();
+}
+inline ::google::protobuf::Map< ::std::string, ::std::string >*
+Options::mutable_options() {
+  // @@protoc_insertion_point(field_mutable_map:kilovictor.Options.options)
+  return options_.MutableMap();
+}
+
+// -------------------------------------------------------------------
+
+// Counters
+
+// map<string, sint64> counters = 1;
+inline int Counters::counters_size() const {
+  return counters_.size();
+}
+inline void Counters::clear_counters() {
+  counters_.Clear();
+}
+inline const ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >&
+Counters::counters() const {
+  // @@protoc_insertion_point(field_map:kilovictor.Counters.counters)
+  return counters_.GetMap();
+}
+inline ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >*
+Counters::mutable_counters() {
+  // @@protoc_insertion_point(field_mutable_map:kilovictor.Counters.counters)
+  return counters_.MutableMap();
+}
+
+// -------------------------------------------------------------------
+
+// ServiceStatus
+
+// optional .kilovictor.ServiceStatusCode code = 1;
+inline void ServiceStatus::clear_code() {
+  code_ = 0;
+}
+inline ::kilovictor::ServiceStatusCode ServiceStatus::code() const {
+  // @@protoc_insertion_point(field_get:kilovictor.ServiceStatus.code)
+  return static_cast< ::kilovictor::ServiceStatusCode >(code_);
+}
+inline void ServiceStatus::set_code(::kilovictor::ServiceStatusCode value) {
+  
+  code_ = value;
+  // @@protoc_insertion_point(field_set:kilovictor.ServiceStatus.code)
+}
+
+// optional string description = 2;
+inline void ServiceStatus::clear_description() {
+  description_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ServiceStatus::description() const {
+  // @@protoc_insertion_point(field_get:kilovictor.ServiceStatus.description)
+  return description_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ServiceStatus::set_description(const ::std::string& value) {
+  
+  description_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:kilovictor.ServiceStatus.description)
+}
+inline void ServiceStatus::set_description(const char* value) {
+  
+  description_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:kilovictor.ServiceStatus.description)
+}
+inline void ServiceStatus::set_description(const char* value, size_t size) {
+  
+  description_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:kilovictor.ServiceStatus.description)
+}
+inline ::std::string* ServiceStatus::mutable_description() {
+  
+  // @@protoc_insertion_point(field_mutable:kilovictor.ServiceStatus.description)
+  return description_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ServiceStatus::release_description() {
+  // @@protoc_insertion_point(field_release:kilovictor.ServiceStatus.description)
+  
+  return description_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ServiceStatus::set_allocated_description(::std::string* description) {
+  if (description != NULL) {
+    
+  } else {
+    
+  }
+  description_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), description);
+  // @@protoc_insertion_point(field_set_allocated:kilovictor.ServiceStatus.description)
+}
+
+// -------------------------------------------------------------------
+
+// ServiceDescription
+
+// optional string name = 1;
+inline void ServiceDescription::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ServiceDescription::name() const {
+  // @@protoc_insertion_point(field_get:kilovictor.ServiceDescription.name)
+  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ServiceDescription::set_name(const ::std::string& value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:kilovictor.ServiceDescription.name)
+}
+inline void ServiceDescription::set_name(const char* value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:kilovictor.ServiceDescription.name)
+}
+inline void ServiceDescription::set_name(const char* value, size_t size) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:kilovictor.ServiceDescription.name)
+}
+inline ::std::string* ServiceDescription::mutable_name() {
+  
+  // @@protoc_insertion_point(field_mutable:kilovictor.ServiceDescription.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ServiceDescription::release_name() {
+  // @@protoc_insertion_point(field_release:kilovictor.ServiceDescription.name)
+  
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ServiceDescription::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:kilovictor.ServiceDescription.name)
+}
+
+// optional string version = 2;
+inline void ServiceDescription::clear_version() {
+  version_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ServiceDescription::version() const {
+  // @@protoc_insertion_point(field_get:kilovictor.ServiceDescription.version)
+  return version_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ServiceDescription::set_version(const ::std::string& value) {
+  
+  version_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:kilovictor.ServiceDescription.version)
+}
+inline void ServiceDescription::set_version(const char* value) {
+  
+  version_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:kilovictor.ServiceDescription.version)
+}
+inline void ServiceDescription::set_version(const char* value, size_t size) {
+  
+  version_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:kilovictor.ServiceDescription.version)
+}
+inline ::std::string* ServiceDescription::mutable_version() {
+  
+  // @@protoc_insertion_point(field_mutable:kilovictor.ServiceDescription.version)
+  return version_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ServiceDescription::release_version() {
+  // @@protoc_insertion_point(field_release:kilovictor.ServiceDescription.version)
+  
+  return version_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ServiceDescription::set_allocated_version(::std::string* version) {
+  if (version != NULL) {
+    
+  } else {
+    
+  }
+  version_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), version);
+  // @@protoc_insertion_point(field_set_allocated:kilovictor.ServiceDescription.version)
+}
+
+// optional fixed64 aliceSince = 3;
+inline void ServiceDescription::clear_alicesince() {
+  alicesince_ = GOOGLE_ULONGLONG(0);
+}
+inline ::google::protobuf::uint64 ServiceDescription::alicesince() const {
+  // @@protoc_insertion_point(field_get:kilovictor.ServiceDescription.aliceSince)
+  return alicesince_;
+}
+inline void ServiceDescription::set_alicesince(::google::protobuf::uint64 value) {
+  
+  alicesince_ = value;
+  // @@protoc_insertion_point(field_set:kilovictor.ServiceDescription.aliceSince)
+}
+
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -484,6 +1210,20 @@ inline void NumericKeyValue::set_allocated_value(::kilovictor::NumericValue* val
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace kilovictor
+
+#ifndef SWIG
+namespace google {
+namespace protobuf {
+
+template <> struct is_proto_enum< ::kilovictor::ServiceStatusCode> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::kilovictor::ServiceStatusCode>() {
+  return ::kilovictor::ServiceStatusCode_descriptor();
+}
+
+}  // namespace protobuf
+}  // namespace google
+#endif  // SWIG
 
 // @@protoc_insertion_point(global_scope)
 

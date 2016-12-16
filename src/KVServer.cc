@@ -29,8 +29,6 @@ Status KVServer :: setNumeric(
     *response = request->value();
     s = Status::OK;
   }
-
-
   
   return s;
 }

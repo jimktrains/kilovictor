@@ -39,9 +39,72 @@ class KiloVictor final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::NumericValue>> AsyncsetNumeric(::grpc::ClientContext* context, const ::kilovictor::NumericKeyValue& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::NumericValue>>(AsyncsetNumericRaw(context, request, cq));
     }
+    // *
+    // Returns a descriptive name of the service
+    virtual ::grpc::Status getDescription(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::ServiceDescription* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::ServiceDescription>> AsyncgetDescription(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::ServiceDescription>>(AsyncgetDescriptionRaw(context, request, cq));
+    }
+    // *
+    // Gets the status of this service
+    virtual ::grpc::Status getStatus(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::ServiceStatus* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::ServiceStatus>> AsyncgetStatus(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::ServiceStatus>>(AsyncgetStatusRaw(context, request, cq));
+    }
+    // *
+    // Gets the counters for this service
+    virtual ::grpc::Status getCounters(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::Counters* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Counters>> AsyncgetCounters(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Counters>>(AsyncgetCountersRaw(context, request, cq));
+    }
+    // *
+    // Gets the value of a single counter
+    virtual ::grpc::Status getCounter(::grpc::ClientContext* context, const ::kilovictor::Counters& request, ::kilovictor::Counters* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Counters>> AsyncgetCounter(::grpc::ClientContext* context, const ::kilovictor::Counters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Counters>>(AsyncgetCounterRaw(context, request, cq));
+    }
+    // *
+    // Sets an option
+    virtual ::grpc::Status setOption(::grpc::ClientContext* context, const ::kilovictor::Options& request, ::kilovictor::Empty* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Empty>> AsyncsetOption(::grpc::ClientContext* context, const ::kilovictor::Options& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Empty>>(AsyncsetOptionRaw(context, request, cq));
+    }
+    // *
+    // Gets an option
+    virtual ::grpc::Status getOption(::grpc::ClientContext* context, const ::kilovictor::Options& request, ::kilovictor::Options* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Options>> AsyncgetOption(::grpc::ClientContext* context, const ::kilovictor::Options& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Options>>(AsyncgetOptionRaw(context, request, cq));
+    }
+    // *
+    // Gets all options
+    virtual ::grpc::Status getOptions(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::Options* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Options>> AsyncgetOptions(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Options>>(AsyncgetOptionsRaw(context, request, cq));
+    }
+    // *
+    // Tell the server to reload its configuration, reopen log files, etc
+    virtual ::grpc::Status reinitialize(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::Empty* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Empty>> Asyncreinitialize(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Empty>>(AsyncreinitializeRaw(context, request, cq));
+    }
+    // *
+    // Suggest a shutdown to the server
+    virtual ::grpc::Status shutdown(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::Empty* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Empty>> Asyncshutdown(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Empty>>(AsyncshutdownRaw(context, request, cq));
+    }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::NumericValue>* AsyncgetNumericRaw(::grpc::ClientContext* context, const ::kilovictor::Key& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::NumericValue>* AsyncsetNumericRaw(::grpc::ClientContext* context, const ::kilovictor::NumericKeyValue& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::ServiceDescription>* AsyncgetDescriptionRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::ServiceStatus>* AsyncgetStatusRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Counters>* AsyncgetCountersRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Counters>* AsyncgetCounterRaw(::grpc::ClientContext* context, const ::kilovictor::Counters& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Empty>* AsyncsetOptionRaw(::grpc::ClientContext* context, const ::kilovictor::Options& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Options>* AsyncgetOptionRaw(::grpc::ClientContext* context, const ::kilovictor::Options& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Options>* AsyncgetOptionsRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Empty>* AsyncreinitializeRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::kilovictor::Empty>* AsyncshutdownRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -54,13 +117,67 @@ class KiloVictor final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::NumericValue>> AsyncsetNumeric(::grpc::ClientContext* context, const ::kilovictor::NumericKeyValue& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::NumericValue>>(AsyncsetNumericRaw(context, request, cq));
     }
+    ::grpc::Status getDescription(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::ServiceDescription* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::ServiceDescription>> AsyncgetDescription(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::ServiceDescription>>(AsyncgetDescriptionRaw(context, request, cq));
+    }
+    ::grpc::Status getStatus(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::ServiceStatus* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::ServiceStatus>> AsyncgetStatus(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::ServiceStatus>>(AsyncgetStatusRaw(context, request, cq));
+    }
+    ::grpc::Status getCounters(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::Counters* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::Counters>> AsyncgetCounters(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::Counters>>(AsyncgetCountersRaw(context, request, cq));
+    }
+    ::grpc::Status getCounter(::grpc::ClientContext* context, const ::kilovictor::Counters& request, ::kilovictor::Counters* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::Counters>> AsyncgetCounter(::grpc::ClientContext* context, const ::kilovictor::Counters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::Counters>>(AsyncgetCounterRaw(context, request, cq));
+    }
+    ::grpc::Status setOption(::grpc::ClientContext* context, const ::kilovictor::Options& request, ::kilovictor::Empty* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::Empty>> AsyncsetOption(::grpc::ClientContext* context, const ::kilovictor::Options& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::Empty>>(AsyncsetOptionRaw(context, request, cq));
+    }
+    ::grpc::Status getOption(::grpc::ClientContext* context, const ::kilovictor::Options& request, ::kilovictor::Options* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::Options>> AsyncgetOption(::grpc::ClientContext* context, const ::kilovictor::Options& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::Options>>(AsyncgetOptionRaw(context, request, cq));
+    }
+    ::grpc::Status getOptions(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::Options* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::Options>> AsyncgetOptions(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::Options>>(AsyncgetOptionsRaw(context, request, cq));
+    }
+    ::grpc::Status reinitialize(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::Empty* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::Empty>> Asyncreinitialize(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::Empty>>(AsyncreinitializeRaw(context, request, cq));
+    }
+    ::grpc::Status shutdown(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::kilovictor::Empty* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::Empty>> Asyncshutdown(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::kilovictor::Empty>>(AsyncshutdownRaw(context, request, cq));
+    }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     ::grpc::ClientAsyncResponseReader< ::kilovictor::NumericValue>* AsyncgetNumericRaw(::grpc::ClientContext* context, const ::kilovictor::Key& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::kilovictor::NumericValue>* AsyncsetNumericRaw(::grpc::ClientContext* context, const ::kilovictor::NumericKeyValue& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::kilovictor::ServiceDescription>* AsyncgetDescriptionRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::kilovictor::ServiceStatus>* AsyncgetStatusRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::kilovictor::Counters>* AsyncgetCountersRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::kilovictor::Counters>* AsyncgetCounterRaw(::grpc::ClientContext* context, const ::kilovictor::Counters& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::kilovictor::Empty>* AsyncsetOptionRaw(::grpc::ClientContext* context, const ::kilovictor::Options& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::kilovictor::Options>* AsyncgetOptionRaw(::grpc::ClientContext* context, const ::kilovictor::Options& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::kilovictor::Options>* AsyncgetOptionsRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::kilovictor::Empty>* AsyncreinitializeRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::kilovictor::Empty>* AsyncshutdownRaw(::grpc::ClientContext* context, const ::kilovictor::Empty& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::RpcMethod rpcmethod_getNumeric_;
     const ::grpc::RpcMethod rpcmethod_setNumeric_;
+    const ::grpc::RpcMethod rpcmethod_getDescription_;
+    const ::grpc::RpcMethod rpcmethod_getStatus_;
+    const ::grpc::RpcMethod rpcmethod_getCounters_;
+    const ::grpc::RpcMethod rpcmethod_getCounter_;
+    const ::grpc::RpcMethod rpcmethod_setOption_;
+    const ::grpc::RpcMethod rpcmethod_getOption_;
+    const ::grpc::RpcMethod rpcmethod_getOptions_;
+    const ::grpc::RpcMethod rpcmethod_reinitialize_;
+    const ::grpc::RpcMethod rpcmethod_shutdown_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -70,6 +187,33 @@ class KiloVictor final {
     virtual ~Service();
     virtual ::grpc::Status getNumeric(::grpc::ServerContext* context, const ::kilovictor::Key* request, ::kilovictor::NumericValue* response);
     virtual ::grpc::Status setNumeric(::grpc::ServerContext* context, const ::kilovictor::NumericKeyValue* request, ::kilovictor::NumericValue* response);
+    // *
+    // Returns a descriptive name of the service
+    virtual ::grpc::Status getDescription(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::ServiceDescription* response);
+    // *
+    // Gets the status of this service
+    virtual ::grpc::Status getStatus(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::ServiceStatus* response);
+    // *
+    // Gets the counters for this service
+    virtual ::grpc::Status getCounters(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Counters* response);
+    // *
+    // Gets the value of a single counter
+    virtual ::grpc::Status getCounter(::grpc::ServerContext* context, const ::kilovictor::Counters* request, ::kilovictor::Counters* response);
+    // *
+    // Sets an option
+    virtual ::grpc::Status setOption(::grpc::ServerContext* context, const ::kilovictor::Options* request, ::kilovictor::Empty* response);
+    // *
+    // Gets an option
+    virtual ::grpc::Status getOption(::grpc::ServerContext* context, const ::kilovictor::Options* request, ::kilovictor::Options* response);
+    // *
+    // Gets all options
+    virtual ::grpc::Status getOptions(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Options* response);
+    // *
+    // Tell the server to reload its configuration, reopen log files, etc
+    virtual ::grpc::Status reinitialize(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Empty* response);
+    // *
+    // Suggest a shutdown to the server
+    virtual ::grpc::Status shutdown(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Empty* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_getNumeric : public BaseClass {
@@ -111,7 +255,187 @@ class KiloVictor final {
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_getNumeric<WithAsyncMethod_setNumeric<Service > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_getDescription : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_getDescription() {
+      ::grpc::Service::MarkMethodAsync(2);
+    }
+    ~WithAsyncMethod_getDescription() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status getDescription(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::ServiceDescription* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestgetDescription(::grpc::ServerContext* context, ::kilovictor::Empty* request, ::grpc::ServerAsyncResponseWriter< ::kilovictor::ServiceDescription>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_getStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_getStatus() {
+      ::grpc::Service::MarkMethodAsync(3);
+    }
+    ~WithAsyncMethod_getStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status getStatus(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::ServiceStatus* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestgetStatus(::grpc::ServerContext* context, ::kilovictor::Empty* request, ::grpc::ServerAsyncResponseWriter< ::kilovictor::ServiceStatus>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_getCounters : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_getCounters() {
+      ::grpc::Service::MarkMethodAsync(4);
+    }
+    ~WithAsyncMethod_getCounters() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status getCounters(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Counters* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestgetCounters(::grpc::ServerContext* context, ::kilovictor::Empty* request, ::grpc::ServerAsyncResponseWriter< ::kilovictor::Counters>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_getCounter : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_getCounter() {
+      ::grpc::Service::MarkMethodAsync(5);
+    }
+    ~WithAsyncMethod_getCounter() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status getCounter(::grpc::ServerContext* context, const ::kilovictor::Counters* request, ::kilovictor::Counters* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestgetCounter(::grpc::ServerContext* context, ::kilovictor::Counters* request, ::grpc::ServerAsyncResponseWriter< ::kilovictor::Counters>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_setOption : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_setOption() {
+      ::grpc::Service::MarkMethodAsync(6);
+    }
+    ~WithAsyncMethod_setOption() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status setOption(::grpc::ServerContext* context, const ::kilovictor::Options* request, ::kilovictor::Empty* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestsetOption(::grpc::ServerContext* context, ::kilovictor::Options* request, ::grpc::ServerAsyncResponseWriter< ::kilovictor::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_getOption : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_getOption() {
+      ::grpc::Service::MarkMethodAsync(7);
+    }
+    ~WithAsyncMethod_getOption() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status getOption(::grpc::ServerContext* context, const ::kilovictor::Options* request, ::kilovictor::Options* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestgetOption(::grpc::ServerContext* context, ::kilovictor::Options* request, ::grpc::ServerAsyncResponseWriter< ::kilovictor::Options>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_getOptions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_getOptions() {
+      ::grpc::Service::MarkMethodAsync(8);
+    }
+    ~WithAsyncMethod_getOptions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status getOptions(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Options* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestgetOptions(::grpc::ServerContext* context, ::kilovictor::Empty* request, ::grpc::ServerAsyncResponseWriter< ::kilovictor::Options>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_reinitialize : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_reinitialize() {
+      ::grpc::Service::MarkMethodAsync(9);
+    }
+    ~WithAsyncMethod_reinitialize() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status reinitialize(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Empty* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestreinitialize(::grpc::ServerContext* context, ::kilovictor::Empty* request, ::grpc::ServerAsyncResponseWriter< ::kilovictor::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_shutdown : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_shutdown() {
+      ::grpc::Service::MarkMethodAsync(10);
+    }
+    ~WithAsyncMethod_shutdown() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status shutdown(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Empty* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void Requestshutdown(::grpc::ServerContext* context, ::kilovictor::Empty* request, ::grpc::ServerAsyncResponseWriter< ::kilovictor::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_getNumeric<WithAsyncMethod_setNumeric<WithAsyncMethod_getDescription<WithAsyncMethod_getStatus<WithAsyncMethod_getCounters<WithAsyncMethod_getCounter<WithAsyncMethod_setOption<WithAsyncMethod_getOption<WithAsyncMethod_getOptions<WithAsyncMethod_reinitialize<WithAsyncMethod_shutdown<Service > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithGenericMethod_getNumeric : public BaseClass {
    private:
@@ -142,6 +466,159 @@ class KiloVictor final {
     }
     // disable synchronous version of this method
     ::grpc::Status setNumeric(::grpc::ServerContext* context, const ::kilovictor::NumericKeyValue* request, ::kilovictor::NumericValue* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_getDescription : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_getDescription() {
+      ::grpc::Service::MarkMethodGeneric(2);
+    }
+    ~WithGenericMethod_getDescription() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status getDescription(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::ServiceDescription* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_getStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_getStatus() {
+      ::grpc::Service::MarkMethodGeneric(3);
+    }
+    ~WithGenericMethod_getStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status getStatus(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::ServiceStatus* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_getCounters : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_getCounters() {
+      ::grpc::Service::MarkMethodGeneric(4);
+    }
+    ~WithGenericMethod_getCounters() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status getCounters(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Counters* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_getCounter : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_getCounter() {
+      ::grpc::Service::MarkMethodGeneric(5);
+    }
+    ~WithGenericMethod_getCounter() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status getCounter(::grpc::ServerContext* context, const ::kilovictor::Counters* request, ::kilovictor::Counters* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_setOption : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_setOption() {
+      ::grpc::Service::MarkMethodGeneric(6);
+    }
+    ~WithGenericMethod_setOption() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status setOption(::grpc::ServerContext* context, const ::kilovictor::Options* request, ::kilovictor::Empty* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_getOption : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_getOption() {
+      ::grpc::Service::MarkMethodGeneric(7);
+    }
+    ~WithGenericMethod_getOption() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status getOption(::grpc::ServerContext* context, const ::kilovictor::Options* request, ::kilovictor::Options* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_getOptions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_getOptions() {
+      ::grpc::Service::MarkMethodGeneric(8);
+    }
+    ~WithGenericMethod_getOptions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status getOptions(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Options* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_reinitialize : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_reinitialize() {
+      ::grpc::Service::MarkMethodGeneric(9);
+    }
+    ~WithGenericMethod_reinitialize() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status reinitialize(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Empty* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_shutdown : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_shutdown() {
+      ::grpc::Service::MarkMethodGeneric(10);
+    }
+    ~WithGenericMethod_shutdown() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status shutdown(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Empty* response) final override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -186,9 +663,189 @@ class KiloVictor final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedsetNumeric(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::kilovictor::NumericKeyValue,::kilovictor::NumericValue>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_getNumeric<WithStreamedUnaryMethod_setNumeric<Service > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_getDescription : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_getDescription() {
+      ::grpc::Service::MarkMethodStreamed(2,
+        new ::grpc::StreamedUnaryHandler< ::kilovictor::Empty, ::kilovictor::ServiceDescription>(std::bind(&WithStreamedUnaryMethod_getDescription<BaseClass>::StreamedgetDescription, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_getDescription() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status getDescription(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::ServiceDescription* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedgetDescription(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::kilovictor::Empty,::kilovictor::ServiceDescription>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_getStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_getStatus() {
+      ::grpc::Service::MarkMethodStreamed(3,
+        new ::grpc::StreamedUnaryHandler< ::kilovictor::Empty, ::kilovictor::ServiceStatus>(std::bind(&WithStreamedUnaryMethod_getStatus<BaseClass>::StreamedgetStatus, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_getStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status getStatus(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::ServiceStatus* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedgetStatus(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::kilovictor::Empty,::kilovictor::ServiceStatus>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_getCounters : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_getCounters() {
+      ::grpc::Service::MarkMethodStreamed(4,
+        new ::grpc::StreamedUnaryHandler< ::kilovictor::Empty, ::kilovictor::Counters>(std::bind(&WithStreamedUnaryMethod_getCounters<BaseClass>::StreamedgetCounters, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_getCounters() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status getCounters(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Counters* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedgetCounters(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::kilovictor::Empty,::kilovictor::Counters>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_getCounter : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_getCounter() {
+      ::grpc::Service::MarkMethodStreamed(5,
+        new ::grpc::StreamedUnaryHandler< ::kilovictor::Counters, ::kilovictor::Counters>(std::bind(&WithStreamedUnaryMethod_getCounter<BaseClass>::StreamedgetCounter, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_getCounter() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status getCounter(::grpc::ServerContext* context, const ::kilovictor::Counters* request, ::kilovictor::Counters* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedgetCounter(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::kilovictor::Counters,::kilovictor::Counters>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_setOption : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_setOption() {
+      ::grpc::Service::MarkMethodStreamed(6,
+        new ::grpc::StreamedUnaryHandler< ::kilovictor::Options, ::kilovictor::Empty>(std::bind(&WithStreamedUnaryMethod_setOption<BaseClass>::StreamedsetOption, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_setOption() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status setOption(::grpc::ServerContext* context, const ::kilovictor::Options* request, ::kilovictor::Empty* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedsetOption(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::kilovictor::Options,::kilovictor::Empty>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_getOption : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_getOption() {
+      ::grpc::Service::MarkMethodStreamed(7,
+        new ::grpc::StreamedUnaryHandler< ::kilovictor::Options, ::kilovictor::Options>(std::bind(&WithStreamedUnaryMethod_getOption<BaseClass>::StreamedgetOption, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_getOption() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status getOption(::grpc::ServerContext* context, const ::kilovictor::Options* request, ::kilovictor::Options* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedgetOption(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::kilovictor::Options,::kilovictor::Options>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_getOptions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_getOptions() {
+      ::grpc::Service::MarkMethodStreamed(8,
+        new ::grpc::StreamedUnaryHandler< ::kilovictor::Empty, ::kilovictor::Options>(std::bind(&WithStreamedUnaryMethod_getOptions<BaseClass>::StreamedgetOptions, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_getOptions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status getOptions(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Options* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedgetOptions(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::kilovictor::Empty,::kilovictor::Options>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_reinitialize : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_reinitialize() {
+      ::grpc::Service::MarkMethodStreamed(9,
+        new ::grpc::StreamedUnaryHandler< ::kilovictor::Empty, ::kilovictor::Empty>(std::bind(&WithStreamedUnaryMethod_reinitialize<BaseClass>::Streamedreinitialize, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_reinitialize() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status reinitialize(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Empty* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status Streamedreinitialize(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::kilovictor::Empty,::kilovictor::Empty>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_shutdown : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_shutdown() {
+      ::grpc::Service::MarkMethodStreamed(10,
+        new ::grpc::StreamedUnaryHandler< ::kilovictor::Empty, ::kilovictor::Empty>(std::bind(&WithStreamedUnaryMethod_shutdown<BaseClass>::Streamedshutdown, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_shutdown() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status shutdown(::grpc::ServerContext* context, const ::kilovictor::Empty* request, ::kilovictor::Empty* response) final override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status Streamedshutdown(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::kilovictor::Empty,::kilovictor::Empty>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_getNumeric<WithStreamedUnaryMethod_setNumeric<WithStreamedUnaryMethod_getDescription<WithStreamedUnaryMethod_getStatus<WithStreamedUnaryMethod_getCounters<WithStreamedUnaryMethod_getCounter<WithStreamedUnaryMethod_setOption<WithStreamedUnaryMethod_getOption<WithStreamedUnaryMethod_getOptions<WithStreamedUnaryMethod_reinitialize<WithStreamedUnaryMethod_shutdown<Service > > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_getNumeric<WithStreamedUnaryMethod_setNumeric<Service > > StreamedService;
+  typedef WithStreamedUnaryMethod_getNumeric<WithStreamedUnaryMethod_setNumeric<WithStreamedUnaryMethod_getDescription<WithStreamedUnaryMethod_getStatus<WithStreamedUnaryMethod_getCounters<WithStreamedUnaryMethod_getCounter<WithStreamedUnaryMethod_setOption<WithStreamedUnaryMethod_getOption<WithStreamedUnaryMethod_getOptions<WithStreamedUnaryMethod_reinitialize<WithStreamedUnaryMethod_shutdown<Service > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace kilovictor
